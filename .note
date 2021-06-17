@@ -1,3 +1,11 @@
+
+jbang init -t cli helloword.java
+
+jbang ../misc/jarshader/JarShader.java -e -O helloword helloword.jar
+
+
+
+
 ///usr/bin/env jbang "$0" "$@" ; exit $?
 
 //DEPS info.picocli:picocli:4.6.0 info.picocli:picocli-codegen:4.6.1 
@@ -7,20 +15,17 @@
 
 //JAVA 16
 
-import static java.lang.System.*;
-
-public class helloword {
-
     public static void main(String... args) {
         out.println("""
             Hello PJUG
            ============
         """);
-        
+
+     java.lang.System.out.println(
+                com.github.lalyos.jfiglet.FigletFont.convertOneLine(new java.io.File("./Doom.flf"), "Hello PJUG "));
+
        out.println(com.github.lalyos.jfiglet.FigletFont.convertOneLine(new java.io.File("./Doom.flf"),"Hello PJUG " )):
     }
 
 }
 
-
-//jbang ../misc/jarshader/JarShader.java -e -O helloword helloword.jar
