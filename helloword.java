@@ -26,7 +26,7 @@ class helloword implements Callable<Integer> {
     @Override
     public Integer call() throws Exception { // your business logic goes here...
         java.lang.System.out.println(
-                com.github.lalyos.jfiglet.FigletFont.convertOneLine(new java.io.File("./Doom.flf"), "Hello PJUG "));
+                com.github.lalyos.jfiglet.FigletFont.convertOneLine(new java.io.File("./Doom.flf"), "Hello " + greeting));
         return 0;
     }
 }
