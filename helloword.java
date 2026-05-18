@@ -13,6 +13,12 @@ import static java.lang.System.*;
 import java.util.concurrent.Callable;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import com.github.lalyos.jfiglet.FigletFont;
+import java.io.File;
+import java.util.Collections;
 
 @Command(name = "helloword", mixinStandardHelpOptions = true, version = "helloword 0.1", description = "helloword made with jbang")
 class helloword implements Callable<Integer> {
@@ -35,16 +41,36 @@ class helloword implements Callable<Integer> {
     public Integer call() throws Exception {
         if (server) {
             SpringApplication app = new SpringApplication(SpringBootApp.class);
-            app.setDefaultProperties(java.util.Collections.singletonMap("server.port", String.valueOf(port)));
+            app.setDefaultProperties(Collections.singletonMap("server.port", String.valueOf(port)));
             app.run();
             return 0;
         }
-        java.lang.System.out.println(
-                com.github.lalyos.jfiglet.FigletFont.convertOneLine(new java.io.File("./Doom.flf"), "Hello " + this.greeting));
+        out.println(FigletFont.convertOneLine(new File("./Doom.flf"), "Hello " + greeting));
         return 0;
     }
 
     @SpringBootApplication
     public static class SpringBootApp {
+    }
+}
+
+@RestController
+class HelloController {
+
+    @GetMapping("/hello")
+    public Greeting hello(@RequestParam(name = "name", defaultValue = "World") String name) {
+        return new Greeting("Hello " + name + "!");
+    }
+
+    static class Greeting {
+        private final String message;
+
+        Greeting(String message) {
+            this.message = message;
+        }
+
+        public String getMessage() {
+            return message;
+        }
     }
 }
